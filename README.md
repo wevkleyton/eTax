@@ -1,5 +1,5 @@
 # etax
-# Prjeto de teste de conhecimento de jsf para vaa de emprego na prosolution.
+# Projeto de teste de conhecimento de jsf para vaga de emprego na prosolution.
 
 #Conforme informado na entrevista, a segunda etapa do processo seletivo refere-se á avaliação técnica e você está selecionado. #Caso ainda esteja interessado, segue em anexo a documentação para elaboração da atividade.
 
