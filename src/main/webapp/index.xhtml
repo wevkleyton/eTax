@@ -11,23 +11,22 @@
 </h:head>
 <h:body>
 	<h:form id="fEtax">
+	<p:messages  showDetail="true" showSummary="true"/>
 		<p:panelGrid columns="2">
 			<p:outputLabel for="nome" value="Nome do Documento :" />
-			<p:inputText id="nome"	value="#{documentoBean.documento.nomeDocumento}" size="40" />
+			<p:inputText id="nome"
+				value="#{documentoBean.documento.nomeDocumento}" size="40" />
 			<p:outputLabel for="descricao" value="Descrição do Documento :" />
-			<p:inputText id="descricao"	value="#{documentoBean.documento.descricaoDocumento}" size="40" />
-			<p:outputLabel for="situacao" value="Situação do Documento :" />
-			<p:selectOneMenu id="situacao"	value="#{documentoBean.documento.situacaoaDocumento}">
-				<f:selectItems value="#{documentoBean.sitdoc}" var="sit" itemLabel="#{sit}" itemValue="#{sit}" />
-			</p:selectOneMenu>
+			<p:inputText id="descricao"
+				value="#{documentoBean.documento.descricaoDocumento}" size="40" />
 		</p:panelGrid>
 		<br />
 		<p:panelGrid>
 			<p:outputLabel for="salvar" />
-			<h:commandButton id="salvar" value="Salvar"
+			<h:commandButton id="salvar" value="Incluir"
 				action="#{documentoBean.salvar}" />
 			<p:outputLabel for="editar" />
-			<h:commandButton id="editar" value="Editar"
+			<h:commandButton id="editar" value="Alterar"
 				action="#{documentoBean.editar}" />
 			<p:outputLabel for="deletar" />
 			<h:commandButton id="deletar" value="Excluir"
@@ -35,20 +34,11 @@
 			<p:outputLabel for="pesquisar" />
 			<h:commandButton id="pesquisar" value="Pesquisar"
 				action="#{documentoBean.pesquisar}" />
+			<p:outputLabel for="pesquisarList" />
+			<h:commandButton id="pesquisarList" value="Visualizar"
+				action="documento.xhtml" />
 		</p:panelGrid>
 		<br />
-		<p:dataTable value="#{documentoBean.documento}" var="doc">
-			<p:column headerText="Nome do Documento">
-				<h:outputText value="#{documentoBean.documento.nomeDocumento}" />
-			</p:column>
-			<p:column headerText="Descrição do Documento">
-				<h:outputText value="#{documentoBean.documento.descricaoDocumento}" />
-			</p:column>
-			<p:column headerText="Situação do Documento">
-				<h:outputText value="#{documentoBean.documento.situacaoaDocumento}" />
-			</p:column>
-
-		</p:dataTable>
 	</h:form>
 </h:body>
 

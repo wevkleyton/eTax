@@ -4,13 +4,13 @@ public enum SituacaoDoc {
 
 	ATIVO("Ativo"), INATIVO("Inativo");
 
-	private String situacao;
+	private String descricao;
 
 	SituacaoDoc(String situacao) {
-		this.situacao = situacao;
+		this.descricao = situacao;
 	}
 
-	public String getSituacao() {
-		return situacao;
+	public String getDescricao() {
+		return descricao;
 	}
 }

@@ -1,9 +1,12 @@
 package org.etax.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 import org.etax.util.JPAUtil;
@@ -61,14 +64,56 @@ public class DaoGeneric<T> {
 		return retorno;
 	}
 
-	public Query byName(String query) {
+	public T byName(String sql) {
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		Query retorno = entityManager.createQuery(query);
+		@SuppressWarnings("unchecked")
+		T retorno =  (T) entityManager.createNativeQuery(sql).getResultList();
 		entityTransaction.commit();
 		entityManager.close();
 		return retorno;
 		
 	}
+	
+	  @SuppressWarnings("unchecked")
+	  public T findObject(Class c, String hql, Map<String,Object> param) throws Exception {
+		  try {
+			  EntityManager entityManager = JPAUtil.getEntityManager();
+			  Query query = (Query) entityManager.createQuery(hql);
+			  T t = null;
+			  for (String chave : param.keySet()) {
+				  query.setParameter(chave, param.get(chave));
+			  }
+			  t = (T) query.getSingleResult();
+			  return t;
+		  } catch (NoResultException e) {
+			  e.printStackTrace();
+			  return null;
+		  } catch ( NonUniqueResultException e) {
+			  e.printStackTrace();
+			  throw new Exception("Existem mais de 1 usuario");
+		  }
+	  }
+	  
+	  public List<T> listObject(Class c, String hql, Map<String,Object> param) throws Exception {
+		  try {
+			  EntityManager entityManager = JPAUtil.getEntityManager();
+			  Query query = (Query) entityManager.createQuery(hql);
+			  List<T> lista = null;
+			  for (String chave : param.keySet()) {
+				  query.setParameter(chave, param.get(chave));
+			  }
+			  lista = (List<T>) query.getResultList();
+			  return lista;
+		  } catch (NoResultException e) {
+			  e.printStackTrace();
+			  return null;
+		  } catch ( NonUniqueResultException e) {
+			  e.printStackTrace();
+			  throw new Exception("Existem mais de 1 usuario");
+		  }
+	  }
+	  
+	  
 }

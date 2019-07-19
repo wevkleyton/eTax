@@ -3,13 +3,17 @@ package org.etax.entidade;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.etax.util.SituacaoDoc;
 
 @Entity
+@Table(name = "documentoent", schema = "public")
 public class DocumentoEnt implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,7 +22,18 @@ public class DocumentoEnt implements Serializable {
 	private Long id;
 	private String nomeDocumento;
 	private String descricaoDocumento;
+	@Enumerated(EnumType.STRING)
 	private SituacaoDoc situacaoaDocumento;
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getNomeDocumento() {
 		return nomeDocumento;

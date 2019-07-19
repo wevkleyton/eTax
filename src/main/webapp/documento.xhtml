@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>etax</title>
+</h:head>
+<h:body>
+	<h:form id="fEtax">
+		<p:messages showDetail="true" showSummary="true" />
+		<p:panelGrid columns="2">
+			<p:outputLabel for="nome" value="Nome do Documento :" />
+			<p:inputText id="nome"
+				value="#{documentoBean.nomePesquisa}" size="40" />
+			<p:outputLabel for="situacao" value="Situação do Documento :" />
+			<p:selectOneMenu id="situacao"
+				value="#{documentoBean.situacaoPesquisa}">
+				<f:selectItems value="#{documentoBean.sitdoc}" var="sit"
+					itemLabel="#{sit.descricao}" itemValue="#{sit}" />
+			</p:selectOneMenu>
+		</p:panelGrid>
+		<br />
+
+		<p:panelGrid>
+			<div class="ui-g-9">
+				<div class="ui-g-2">
+					<p:outputLabel for="salvar" />
+					<p:commandButton id="salvar" value="Salvar"
+						action="#{documentoBean.salvar}" />
+				</div>
+				<div class="ui-g-2">
+					<p:outputLabel for="editar" />
+					<p:commandButton id="editar" value="Editar"
+						action="#{documentoBean.exibe}" oncomplete="PF('dlgTeste').show()" update="frm_edicao"/>
+				</div>
+				<div class="ui-g-2">
+					<p:outputLabel for="deletar" />
+					<p:commandButton id="deletar" value="Excluir"
+						action="#{documentoBean.deletar}" />
+				</div>
+				<div class="ui-g-4">
+					<p:outputLabel for="pesquisar" />
+					<p:commandButton id="pesquisar" value="Pesquisar"
+						action="#{documentoBean.pesquisar}" update="fEtax" />
+				</div>
+			</div>
+		</p:panelGrid>
+		<br />
+		<div class="ui-g-9">
+			<p:dataTable value="#{documentoBean.listaDoc}" var="doc"
+				selectionMode="single" rowKey="#{doc.id}" selection="#{documentoBean.documento}">
+				<p:column headerText="Nome do Documento">
+					<h:outputText value="#{doc.nomeDocumento}" />
+				</p:column>
+				<p:column headerText="Descrição do Documento">
+					<h:outputText value="#{doc.descricaoDocumento}" />
+				</p:column>
+				<p:column headerText="Situação do Documento">
+					<h:outputText value="#{doc.situacaoaDocumento}" />
+				</p:column>
+			</p:dataTable>
+		</div>
+		
+	</h:form>
+	
+	<h:form id="frm_edicao" prependId="false">
+		<p:dialog header="Teste" widgetVar="dlgTeste" modal="true" height="170" width="400" >
+				<p:panelGrid columns="2">
+					<h:outputLabel value="Nome" /> 
+					<p:inputText value="#{documentoBean.documentoEdicao.nomeDocumento}"/>
+					
+					<h:outputLabel value="Descrição"/> 
+					<p:inputText value="#{documentoBean.documentoEdicao.descricaoDocumento}"/>
+					
+					<h:outputLabel value="Situação"/> 
+					<p:selectOneMenu id="situacao"
+						value="#{documentoBean.sitdocEd}">
+						<f:selectItems value="#{documentoBean.sitdocEd}" var="sited"
+						itemLabel="#{sited.descricao}" itemValue="#{sited}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+				
+				<br/>
+				<p:commandButton value="Fechar" onclick="PF('dlgTeste').close()"></p:commandButton>
+				<p:commandButton value="Salvar" action="#{documentoBean.editar}"></p:commandButton>
+			</p:dialog>
+	</h:form>
+</h:body>
+
+</html>
