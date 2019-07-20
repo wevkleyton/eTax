@@ -86,6 +86,7 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 
 	public String deletar() throws Exception {
 		daoGeneric.deleteById(documento);
+		Menssagens.msgInfo("Informação", "Arquivo Excluido com sucesso.");
 		pesquisar();
 		return "";
 	}
