@@ -29,21 +29,28 @@
 			<div class="ui-g-9">
 				<div class="ui-g-2">
 					<p:outputLabel for="incluir" />
-					<p:commandButton id="incluir" value="Incluir" action="#{documentoBean.incluir}"
+					<p:commandButton id="incluir" value="Incluir"
+						action="#{documentoBean.incluir}"
 						oncomplete="PF('dlgIncluir').show()" update="frm_inclusao" />
 				</div>
 				<div class="ui-g-2">
 					<p:outputLabel for="editar" />
-					<p:commandButton id="editar" value="Editar"	action="#{documentoBean.exibe}" oncomplete="PF('dlgEditar').show()"
-						update="frm_edicao, fEtax" />
+					<p:commandButton id="editar" value="Editar"
+						action="#{documentoBean.exibe}"
+						oncomplete="PF('dlgEditar').show()" update="frm_edicao, fEtax" />
 				</div>
 				<div class="ui-g-2">
-					<p:commandButton value="Excluir" action="#{documentoBean.deletar}" update="fEtax">
-					<p:confirm header="Confirmação" message="Você Deseja realmente Excluir?" icon="pi pi-exclamation-triangle" />
+					<p:commandButton value="Excluir" action="#{documentoBean.deletar}"
+						update="fEtax">
+						<p:confirm header="Confirmação"
+							message="Você Deseja realmente Excluir?"
+							icon="pi pi-exclamation-triangle" />
 					</p:commandButton>
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Sim" type="button"	styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-						<p:commandButton value="Não" type="button"	styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						<p:commandButton value="Sim" type="button"
+							styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+						<p:commandButton value="Não" type="button"
+							styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 					</p:confirmDialog>
 				</div>
 				<div class="ui-g-4">
@@ -73,47 +80,58 @@
 	</h:form>
 
 	<h:form id="frm_edicao" prependId="false">
-	<p:messages showDetail="true" showSummary="true" />
+		<p:growl id="msg_edicao" showDetail="true" />
 		<p:dialog header="Teste" widgetVar="dlgEditar" modal="true"
 			height="200" width="700">
 			<p:panelGrid columns="2">
 				<h:outputLabel value="Nome do Documento" />
-				<p:inputText value="#{documentoBean.documentoEdicao.nomeDocumento}" size="40" />
+				<p:inputText value="#{documentoBean.documentoEdicao.nomeDocumento}"
+					size="40" />
 
 				<h:outputLabel value="Descrição do Documento" />
 				<p:inputText
-					value="#{documentoBean.documentoEdicao.descricaoDocumento}" size="40"/>
+					value="#{documentoBean.documentoEdicao.descricaoDocumento}"
+					size="40" />
 
 				<h:outputLabel value="Situação do Documento" />
-				<p:selectOneMenu id="situacao" value="#{documentoBean.situacaoEdicao}">
-					<f:selectItems value="#{documentoBean.situacaoDocumentoEdicao}" var="sitedicao"	itemLabel="#{sitedicao.descricao}" itemValue="sitedicao" />
+				<p:selectOneMenu id="situacao"
+					value="#{documentoBean.situacaoEdicao}">
+					<f:selectItems value="#{documentoBean.situacaoDocumentoEdicao}"
+						var="sitedicao" itemLabel="#{sitedicao.descricao}"
+						itemValue="#{sitedicao}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
 
 			<br />
-			<p:commandButton value="Fechar" onclick="PF('dlgEditar').close()"/>
-			<p:commandButton value="Editar" action="#{documentoBean.editar}" update="frm_edicao"/>
+			<p:commandButton value="Fechar" onclick="PF('dlgEditar').close()" />
+			<p:commandButton value="Editar" action="#{documentoBean.editar}"
+				update="frm_edicao, fEtax" />
 		</p:dialog>
 	</h:form>
 	<h:form id="frm_inclusao" prependId="false">
-	<p:messages showDetail="true" showSummary="true" />
-		<p:dialog header="Inclisão" widgetVar="dlgIncluir" modal="true"	height="200" width="700">
+		<p:growl id="msg_inclusao" showDetail="true" />
+		<p:dialog header="Inclisão" widgetVar="dlgIncluir" modal="true"
+			height="200" width="700">
 			<p:panelGrid columns="2">
 				<h:outputLabel value="Nome do Documento" />
-				<p:inputText value="#{documentoBean.documento.nomeDocumento}" size="40" />
+				<p:inputText value="#{documentoBean.documento.nomeDocumento}"
+					size="40" />
 
 				<h:outputLabel value="Descrição do Documento" />
-				<p:inputText value="#{documentoBean.documento.descricaoDocumento}" size="40" />
+				<p:inputText value="#{documentoBean.documento.descricaoDocumento}"
+					size="40" />
 
 				<h:outputLabel value="Situação do Documento" />
-				<p:selectOneMenu id="situacaoincluir"	value="#{documentoBean.situacaoPesquisa}">
-					<f:selectItems value="#{documentoBean.sitdoc}" var="sitn" itemLabel="#{sitn.descricao}" itemValue="#{sitn}" />
+				<p:selectOneMenu id="situacaoincluir"
+					value="#{documentoBean.situacaoPesquisa}">
+					<f:selectItems value="#{documentoBean.sitdoc}" var="sitn"
+						itemLabel="#{sitn.descricao}" itemValue="#{sitn}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
 
 			<br />
-			<p:commandButton value="Fechar" onclick="PF('dlgIncluir').close()"/>
-			<p:commandButton value="Salvar" action="#{documentoBean.salvar}"/>
+			<p:commandButton value="Fechar" onclick="PF('dlgIncluir').close()" />
+			<p:commandButton value="Salvar" action="#{documentoBean.salvar}" update="fEtax,frm_inclusao" />
 		</p:dialog>
 	</h:form>
 

@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.etax.dao.DaoGeneric;
 import org.etax.entidade.DocumentoEnt;
@@ -40,16 +39,14 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 	public void salvar() {
 		documento.setSituacaoaDocumento(situacaoPesquisa);
 		daoGeneric.salvar(documento);
-		Menssagens.msgInfo("Informação", "Pesquisa realizada com sucesso.");
-		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+		Menssagens.msgInfo("msg_inclusao", "Informação", "Documento Salvo com sucesso.");
 	}
 
 	public void editar() {
 		documentoEdicao.setSituacaoaDocumento(situacaoEdicao);
 		daoGeneric.merge(documentoEdicao);
 		documentoEdicao = new DocumentoEnt();
-		Menssagens.msgInfo("Informação", "Pesquisa realizada com sucesso.");
-
+		Menssagens.msgInfo("msg_edicao", "Informação", "Pesquisa realizada com sucesso.");
 	}
 
 	public void exibe() {
@@ -176,6 +173,4 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 		this.situacaoEdicao = situacaoDocEdicao;
 	}
 
-	
-	
 }
