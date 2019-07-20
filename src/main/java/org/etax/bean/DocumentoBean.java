@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.etax.dao.DaoGeneric;
 import org.etax.entidade.DocumentoEnt;
@@ -28,7 +29,7 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 	private List<SituacaoDoc> situacaoDocumento;
 	private List<SituacaoDoc> situacaoDocumentoEdicao;
 	private String nomePesquisa;
-	private SituacaoDoc situacaoPesquisa;
+	private SituacaoDoc situacaoPesquisa, situacaoEdicao;
 	private DocumentoEnt documentoEdicao;
 
 	@PostConstruct
@@ -39,12 +40,12 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 	public void salvar() {
 		documento.setSituacaoaDocumento(situacaoPesquisa);
 		daoGeneric.salvar(documento);
-		novo();
 		Menssagens.msgInfo("Informação", "Pesquisa realizada com sucesso.");
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	}
 
 	public void editar() {
-		documentoEdicao.setSituacaoaDocumento(situacaoPesquisa);
+		documentoEdicao.setSituacaoaDocumento(situacaoEdicao);
 		daoGeneric.merge(documentoEdicao);
 		documentoEdicao = new DocumentoEnt();
 		Menssagens.msgInfo("Informação", "Pesquisa realizada com sucesso.");
@@ -167,4 +168,14 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 		this.situacaoDocumentoEdicao = situacaoDocumentoEdicao;
 	}
 
+	public SituacaoDoc getSituacaoEdicao() {
+		return situacaoEdicao;
+	}
+
+	public void setSituacaoEdicao(SituacaoDoc situacaoDocEdicao) {
+		this.situacaoEdicao = situacaoDocEdicao;
+	}
+
+	
+	
 }
