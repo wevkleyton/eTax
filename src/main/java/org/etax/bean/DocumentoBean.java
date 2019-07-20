@@ -25,29 +25,40 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 	private DocumentoEnt documento = new DocumentoEnt();
 	private DaoGeneric<DocumentoEnt> daoGeneric = new DaoGeneric<DocumentoEnt>();
 	private List<DocumentoEnt> listaDoc = new ArrayList<DocumentoEnt>();
-	private List<SituacaoDoc> sitdoc, sitdocEd;
+	private List<SituacaoDoc> situacaoDocumento;
+	private List<SituacaoDoc> situacaoDocumentoEdicao;
 	private String nomePesquisa;
 	private SituacaoDoc situacaoPesquisa;
 	private DocumentoEnt documentoEdicao;
 
 	@PostConstruct
 	public void init() {
-		sitdoc = Arrays.asList(SituacaoDoc.values());
-		sitdocEd = Arrays.asList(SituacaoDoc.values());
+		situacaoDocumento = Arrays.asList(SituacaoDoc.values());
 	}
 
 	public void salvar() {
-		daoGeneric.salvar(documentoEdicao);
-		documentoEdicao = new DocumentoEnt();
+		documento.setSituacaoaDocumento(situacaoPesquisa);
+		daoGeneric.salvar(documento);
+		novo();
+		Menssagens.msgInfo("Informação", "Pesquisa realizada com sucesso.");
 	}
 
 	public void editar() {
+		documentoEdicao.setSituacaoaDocumento(situacaoPesquisa);
 		daoGeneric.merge(documentoEdicao);
 		documentoEdicao = new DocumentoEnt();
+		Menssagens.msgInfo("Informação", "Pesquisa realizada com sucesso.");
+
 	}
 
 	public void exibe() {
+		situacaoDocumentoEdicao = Arrays.asList(SituacaoDoc.values());
 		documentoEdicao = documento;
+
+	}
+
+	public void incluir() {
+		documento = new DocumentoEnt();
 
 	}
 
@@ -61,7 +72,7 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 		if (listaDoc == null || listaDoc.size() == 0) {
 			Menssagens.msgError("Error", "Sem Registro ");
 		} else {
-			Menssagens.msgInfo("INFORMAÇÂO", "Pesquisa realizada com sucesso.");
+			Menssagens.msgInfo("Informação", "Pesquisa realizada com sucesso.");
 		}
 		return "";
 	}
@@ -75,11 +86,13 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 		return "";
 	}
 
-	public String deletar() {
+	public String deletar() throws Exception {
 		daoGeneric.deleteById(documento);
+		pesquisar();
 		return "";
 	}
 
+	@SuppressWarnings("unused")
 	private void carregaDocumento() {
 		documento = (DocumentoEnt) daoGeneric.getListEntity(DocumentoEnt.class);
 	}
@@ -101,7 +114,7 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 	}
 
 	public List<SituacaoDoc> getSitdoc() {
-		return sitdoc;
+		return situacaoDocumento;
 	}
 
 	@Override
@@ -138,12 +151,20 @@ public class DocumentoBean implements SelectableDataModel<DocumentoEnt>, Seriali
 		this.documentoEdicao = documentoEdicao;
 	}
 
-	public List<SituacaoDoc> getSitdocEd() {
-		return sitdocEd;
+	public List<SituacaoDoc> getSituacaoDocumento() {
+		return situacaoDocumento;
 	}
 
-	public void setSitdocEd(List<SituacaoDoc> sitdocEd) {
-		this.sitdocEd = sitdocEd;
+	public void setSituacaoDocumento(List<SituacaoDoc> situacaoDocumento) {
+		this.situacaoDocumento = situacaoDocumento;
+	}
+
+	public List<SituacaoDoc> getSituacaoDocumentoEdicao() {
+		return situacaoDocumentoEdicao;
+	}
+
+	public void setSituacaoDocumentoEdicao(List<SituacaoDoc> situacaoDocumentoEdicao) {
+		this.situacaoDocumentoEdicao = situacaoDocumentoEdicao;
 	}
 
 }
